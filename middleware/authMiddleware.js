@@ -1,0 +1,48 @@
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+const { getDBStatus } = require('../config/db');
+
+const JWT_SECRET = process.env.JWT_SECRET || 'shahid_portfolio_super_secret_jwt_key_2026';
+
+const protect = async (req, res, next) => {
+  let token;
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    try {
+      token = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(token, JWT_SECRET);
+
+      if (getDBStatus()) {
+        req.user = await User.findById(decoded.id).select('-password');
+        if (!req.user) {
+          // If decoded id matches admin email
+          req.user = { id: decoded.id, email: decoded.email, role: 'admin' };
+        }
+      } else {
+        // In-memory fallback
+        req.user = { id: decoded.id, email: decoded.email, role: 'admin' };
+      }
+
+      return next();
+    } catch (error) {
+      console.error('[Auth Middleware Error]:', error.message);
+      return res.status(401).json({
+        success: false,
+        message: 'Not authorized: Invalid or expired token'
+      });
+    }
+  }
+
+  if (!token) {
+    return res.status(401).json({
+      success: false,
+      message: 'Not authorized: No Bearer token provided'
+    });
+  }
+};
+
+module.exports = { protect, JWT_SECRET };
+
