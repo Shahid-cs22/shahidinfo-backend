@@ -50,8 +50,8 @@ Scalable Express.js & MongoDB REST API engine powering Mohamed Shahid's full-sta
 
 ### 1. Installation
 ```bash
-git clone https://github.com/Shahid-cs22/mohamed-shahid-portfolio-backend.git
-cd mohamed-shahid-portfolio-backend
+git clone https://github.com/Shahid-cs22/shahidinfo-backend.git
+cd shahidinfo-backend
 npm install
 ```
 
@@ -88,3 +88,4 @@ Server starts at [http://localhost:5000](http://localhost:5000).
 - GitHub: [@Shahid-cs22](https://github.com/Shahid-cs22)
 - LinkedIn: [Mohamed Shahid](https://www.linkedin.com/in/infoshahid)
 - Email: [moh.shahid2004@gmail.com](mailto:moh.shahid2004@gmail.com)
+
