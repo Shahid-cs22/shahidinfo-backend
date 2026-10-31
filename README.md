@@ -3,6 +3,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-v18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
 [![Express](https://img.shields.io/badge/Express-v4.21-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com)
 [![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-Cloud_Mongoose-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/cloud/atlas)
+[![Render Live API](https://img.shields.io/badge/Render-Live_API-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://shahidinfo-backend.onrender.com)
 [![JWT](https://img.shields.io/badge/Auth-JWT_%26_Bcrypt-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)](https://jwt.io)
 
 Scalable Express.js & MongoDB REST API engine powering Mohamed Shahid's full-stack dynamic portfolio. Features pure dynamic data lifecycle management, resilient fallback architecture, authenticated Admin CMS CRUD endpoints, and live MongoDB Atlas cloud integration.
@@ -75,11 +76,10 @@ npm run seed
 
 ## Render Cloud Deployment
 
-When deploying this backend to **[Render](https://render.com/)** as a Web Service:
-
+- **Primary Live URL**: [https://shahidinfo-backend.onrender.com](https://shahidinfo-backend.onrender.com)
+- **Health Check Path**: `/api/health` ([https://shahidinfo-backend.onrender.com/api/health](https://shahidinfo-backend.onrender.com/api/health))
 - **Build Command**: `npm install`
 - **Start Command**: `node server.js`
-- **Health Check Path**: `/api/health`
 - **Environment Variables**:
   - `NODE_ENV`: `production`
   - `MONGODB_URI`: `mongodb+srv://<username>:<password>@project.jhqu6wj.mongodb.net/portfolio?retryWrites=true&w=majority`
