@@ -21,11 +21,14 @@ app.use((req, res, next) => {
 });
 
 // Middleware
-app.use(cors({
-  origin: '*', // Allow frontend dev server
+const corsOptions = {
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cache-Control', 'Pragma', 'Accept', 'X-Requested-With'],
+  exposedHeaders: ['*']
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
