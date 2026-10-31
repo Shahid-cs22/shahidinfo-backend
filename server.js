@@ -25,13 +25,23 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
-// Health & Status check
-app.get('/api/health', (req, res) => {
+// Health & Status check (supports /api/health and /health for Render monitoring)
+app.get(['/api/health', '/health'], (req, res) => {
   res.status(200).json({
     status: 'online',
     timestamp: new Date().toISOString(),
     database: getDBStatus() ? 'connected (mongodb)' : 'active (resilient memory-engine)',
     version: '2.0.0-admin'
+  });
+});
+
+// Root welcome & API manifest endpoint
+app.get('/', (req, res) => {
+  res.status(200).json({
+    name: 'Mohamed Shahid Portfolio API',
+    status: 'online',
+    health: '/api/health',
+    documentation: 'https://github.com/Shahid-cs22/shahidinfo-backend'
   });
 });
 

@@ -24,8 +24,9 @@ Scalable Express.js & MongoDB REST API engine powering Mohamed Shahid's full-sta
 ### 1. Public Endpoints
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
+| `GET` | `/` | API welcome manifest & root health check. |
 | `GET` | `/api/portfolio` | Returns full portfolio data (profile, projects, skills, timeline). |
-| `GET` | `/api/health` | Returns server health, uptime, and database connection status. |
+| `GET` | `/api/health` | Returns server health, uptime, and database connection status (aliases: `/health`). Render Health Check Path. |
 | `POST` | `/api/contact` | Submits a recruiter / collaboration message into MongoDB. |
 
 ### 2. Admin Authentication
@@ -69,6 +70,21 @@ Seed initial authentic portfolio records and admin credentials into MongoDB:
 ```bash
 npm run seed
 ```
+
+---
+
+## Render Cloud Deployment
+
+When deploying this backend to **[Render](https://render.com/)** as a Web Service:
+
+- **Build Command**: `npm install`
+- **Start Command**: `node server.js`
+- **Health Check Path**: `/api/health`
+- **Environment Variables**:
+  - `NODE_ENV`: `production`
+  - `MONGODB_URI`: `mongodb+srv://<username>:<password>@project.jhqu6wj.mongodb.net/portfolio?retryWrites=true&w=majority`
+  - `JWT_SECRET`: `<your_secret_key>`
+
 
 ### 4. Running the Server
 ```bash
