@@ -28,8 +28,8 @@ const SkillSchema = new mongoose.Schema({
   name: { type: String, required: true },
   category: { 
     type: String, 
-    enum: ['Frontend', 'Backend', 'Database', 'Tools', 'Languages'],
-    required: true 
+    required: true,
+    trim: true
   },
   proficiency: { type: Number, min: 1, max: 100, default: 85 },
   icon: { type: String },

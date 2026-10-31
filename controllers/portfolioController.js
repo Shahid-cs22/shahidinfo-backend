@@ -161,10 +161,14 @@ const createProject = async (req, res) => {
 const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const updateData = req.body;
+    const updateData = { ...req.body };
+    delete updateData._id;
+    delete updateData.__v;
+    delete updateData.createdAt;
+    delete updateData.updatedAt;
 
     if (getDBStatus()) {
-      const updated = await Project.findByIdAndUpdate(id, updateData, { new: true });
+      const updated = await Project.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
       if (!updated) return res.status(404).json({ success: false, message: 'Project not found' });
       return res.status(200).json({ success: true, message: 'Project updated in MongoDB', data: updated });
     } else {
@@ -263,10 +267,14 @@ const createSkill = async (req, res) => {
 const updateSkill = async (req, res) => {
   try {
     const { id } = req.params;
-    const updateData = req.body;
+    const updateData = { ...req.body };
+    delete updateData._id;
+    delete updateData.__v;
+    delete updateData.createdAt;
+    delete updateData.updatedAt;
 
     if (getDBStatus()) {
-      const skill = await Skill.findByIdAndUpdate(id, updateData, { new: true });
+      const skill = await Skill.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
       if (!skill) return res.status(404).json({ success: false, message: 'Skill not found' });
       return res.status(200).json({ success: true, message: 'Skill updated in MongoDB', data: skill });
     } else {
@@ -354,14 +362,20 @@ const createExperience = async (req, res) => {
 const updateExperience = async (req, res) => {
   try {
     const { id } = req.params;
+    const updateData = { ...req.body };
+    delete updateData._id;
+    delete updateData.__v;
+    delete updateData.createdAt;
+    delete updateData.updatedAt;
+
     if (getDBStatus()) {
-      const exp = await Experience.findByIdAndUpdate(id, req.body, { new: true });
+      const exp = await Experience.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
       if (!exp) return res.status(404).json({ success: false, message: 'Experience not found' });
       return res.status(200).json({ success: true, message: 'Experience updated in MongoDB', data: exp });
     } else {
       const idx = memoryData.experiences.findIndex(e => e._id.toString() === id.toString());
       if (idx === -1) return res.status(404).json({ success: false, message: 'Experience not found' });
-      memoryData.experiences[idx] = { ...memoryData.experiences[idx], ...req.body };
+      memoryData.experiences[idx] = { ...memoryData.experiences[idx], ...updateData };
       return res.status(200).json({ success: true, message: 'Experience updated in memory', data: memoryData.experiences[idx] });
     }
   } catch (error) {
@@ -417,14 +431,20 @@ const createEducation = async (req, res) => {
 const updateEducation = async (req, res) => {
   try {
     const { id } = req.params;
+    const updateData = { ...req.body };
+    delete updateData._id;
+    delete updateData.__v;
+    delete updateData.createdAt;
+    delete updateData.updatedAt;
+
     if (getDBStatus()) {
-      const edu = await Education.findByIdAndUpdate(id, req.body, { new: true });
+      const edu = await Education.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
       if (!edu) return res.status(404).json({ success: false, message: 'Education not found' });
       return res.status(200).json({ success: true, message: 'Education updated in MongoDB', data: edu });
     } else {
       const idx = memoryData.education.findIndex(e => e._id.toString() === id.toString());
       if (idx === -1) return res.status(404).json({ success: false, message: 'Education not found' });
-      memoryData.education[idx] = { ...memoryData.education[idx], ...req.body };
+      memoryData.education[idx] = { ...memoryData.education[idx], ...updateData };
       return res.status(200).json({ success: true, message: 'Education updated in memory', data: memoryData.education[idx] });
     }
   } catch (error) {

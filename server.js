@@ -12,6 +12,14 @@ const contactRoutes = require('./routes/contactRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Anti-cache middleware for dynamic data synchronization across mobile & web
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
+
 // Middleware
 app.use(cors({
   origin: '*', // Allow frontend dev server
